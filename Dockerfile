@@ -27,7 +27,7 @@ RUN apt-get update && \
     	g++ \
     	make \
     	gcc \
-		nodejs \
+		# nodejs \
     	apt-utils \
         rsync \
     	file \
@@ -37,7 +37,13 @@ RUN apt-get update && \
     	gettext && \
         apt-get clean && \
         ln -sf /usr/bin/python3.8 /usr/bin/python && \
-        ln -sf /usr/bin/pip3 /usr/bin/pip 
+        ln -sf /usr/bin/pip3 /usr/bin/pip
+
+# Customize - Install Latest LTS Version 20.x of NodeJS
+RUN curl -sL https://deb.nodesource.com/setup_20.x -o /tmp/nodesource_setup.sh && \
+	chmod +x /tmp/nodesource_setup.sh && \
+	bash /tmp/nodesource_setup.sh && \
+	apt install nodejs
 
 # Install Gradle
 ENV GRADLE_VERSION=7.4.2
